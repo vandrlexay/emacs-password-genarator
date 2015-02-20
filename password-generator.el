@@ -10,7 +10,7 @@
      
 ;; Generate a password and insert it in-place. Such functions provided:
 ;; pass-get-simple   - simple password for most websites
-;; pass-get-phonetic - easy to remeber password
+;; pass-get-phonetic - easy to remember password
 ;; pass-get-strong   - strong password and still suitable for most web sites with strange password requirements to used special chars.
 
 ;; Use C-u <length> pass-get-simple to specify length of generated password
