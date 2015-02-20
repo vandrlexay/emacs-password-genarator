@@ -4,22 +4,25 @@
 
 ;; Author: Zargener <zargener@gmail.com>
 ;; URL: http://github.com/zargener/emacs-password-genarator
-;; Version: 1.0
+;; Version: 1.01
 
 ;;; Commentary:
      
 ;; Generate a password and insert it in-place. Such functions provided:
-;; pass-get-simple   - simple password for most websites
-;; pass-get-phonetic - easy to remember password
-;; pass-get-strong   - strong password and still suitable for most web sites with strange password requirements to used special chars.
 
-;; Use C-u <length> pass-get-simple to specify length of generated password
+;; password-generator/numeric  - generate PIN-code or any other numeric password.
+;; password-generator/simple   - simple password for most websites.
+;; password-generator/phonetic - easy to remember password.
+;; password-generator/strong   - strong password and still suitable for most web sites with strange password requirements to used special chars.
+
+;; Use C-u <length> password-generator/simple to specify length of generated password. This works with other functions too.
 
 ;; See full docs here: http://github.com/zargener/emacs-password-genarator
 
 ;;; Code:
 
-(defun get-random-string-char (string)
+;;;###autoload
+(defun password-generator/get-random-string-char (string)
   "You pass here string. You get random character from it."
   (let* ((random-symbol 0)) 
     (progn
@@ -27,8 +30,8 @@
       (substring string random-symbol (+ 1 random-symbol)))))
 
 
-
-(defun pass-generate-internal (symbols-for-pass pass-length)
+;;;###autoload
+(defun password-generator/generate-internal (symbols-for-pass pass-length)
   "Generates the password with given vocabulary and length"
   (let* 
       ((iter 0)
@@ -37,56 +40,61 @@
       (progn
         (setq 
          password 
-         (concat password (get-random-string-char symbols-for-pass)))
+         (concat password (password-generator/get-random-string-char symbols-for-pass)))
          (setq iter (+ 1 iter))))
     password))
 
 
-(defun pass-get-simple (&optional pre-len return)
+;;;###autoload
+(defun password-generator/simple (&optional pre-len return)
   "Minimal viable password for most of web systems. It is not secure but allows to register."
   (interactive)
   (let* (
          (password "")
          (pass-length (or pre-len current-prefix-arg 8))
          (symbols-for-pass "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-    (setq password (pass-generate-internal symbols-for-pass pass-length))
+    (setq password (password-generator/generate-internal symbols-for-pass pass-length))
     (cond ((equal nil return) (insert password)) (t password))))
 
 
-(defun pass-get-strong (&optional pre-len return)
+;;;###autoload
+(defun password-generator/strong (&optional pre-len return)
   "The best password you can get. Some symbols does not included to make you free from problems which occurs when your shell tries interpolate $, \\ and others."
   (interactive)
   (let* (
          (password "")
          (pass-length (or pre-len current-prefix-arg 12))
          (symbols-for-pass "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ_@!.^%,&-"))
-    (setq password (pass-generate-internal symbols-for-pass pass-length))
+    (setq password (password-generator/generate-internal symbols-for-pass pass-length))
     (cond ((equal nil return) (insert password)) (t password))))
 
 
-(defun pass-get-paranoid (&optional pre-len return)
+;;;###autoload
+(defun password-generator/paranoid (&optional pre-len return)
   "Good thing to use if you really care about bruteforce. Not all applications handle special characters presented in such password properly. Be ready to escape special characters if you will pass such password via ssh command or so."
   (interactive)
   (let* (
          (password "")
          (pass-length (or pre-len current-prefix-arg 20))
          (symbols-for-pass "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_-+=/?,.><[]{}~"))
-    (setq password (pass-generate-internal symbols-for-pass pass-length))
+    (setq password (password-generator/generate-internal symbols-for-pass pass-length))
     (cond ((equal nil return) (insert password)) (t password))))
 
 
-(defun pass-get-numeric (&optional pre-len return)
+;;;###autoload
+(defun password-generator/numeric (&optional pre-len return)
   "Yeah, there are sill reasons to use numeric passwords like credit card PIN-code"
   (interactive)
   (let* (
          (password "")
          (pass-length (or pre-len current-prefix-arg 4))
          (symbols-for-pass "0123456789"))
-    (setq password (pass-generate-internal symbols-for-pass pass-length))
+    (setq password (password-generator/generate-internal symbols-for-pass pass-length))
     (cond ((equal nil return) (insert password)) (t password))))
 
 
-(defun pass-get-phonetic (&optional pre-len return)
+;;;###autoload
+(defun password-generator/phonetic (&optional pre-len return)
   "It will be easy to remeber, because of fonetic, but not so secure..."
   (interactive)
   (let*
@@ -101,9 +109,9 @@
     (while (< iter max-iter)
       (progn 
         (setq password (concat password
-                               (get-random-string-char letters-B)
-                               (get-random-string-char letters-A)
-                               (get-random-string-char letters-N)))
+                               (password-generator/get-random-string-char letters-B)
+                               (password-generator/get-random-string-char letters-A)
+                               (password-generator/get-random-string-char letters-N)))
         (setq iter (+ 1 iter))))
     (setq password (substring password 0 pass-length))
     (cond ((equal nil return) (insert password)) (t password))))
