@@ -108,5 +108,6 @@
     (setq password (substring password 0 pass-length))
     (cond ((equal nil return) (insert password)) (t password))))
 
+(provide 'password-generator)
 
 ;;; password-generator.el  ends here
