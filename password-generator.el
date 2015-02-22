@@ -22,11 +22,19 @@
 ;;; Code:
 
 ;;;###autoload
+(defun password-generator-random (max)
+  "Feel free to rewrite this random. Just don't make it too slow."
+  (let* 
+      ((random-value (random max)))
+
+    random-value))
+
+;;;###autoload
 (defun password-generator-get-random-string-char (string)
   "You pass here string. You get random character from it."
   (let* ((random-symbol 0)) 
     (progn
-      (setq random-symbol (random (length string)))
+      (setq random-symbol (password-generator-random (length string)))
       (substring string random-symbol (+ 1 random-symbol)))))
 
 
@@ -99,8 +107,8 @@
   (interactive)
   (let*
       ((password "")
-       (letters-A "eoai")
-       (letters-B "rtpsdfghjkzxcvbnm")
+       (letters-A "eyuioa")
+       (letters-B "wrtpsdfghjkzxcvbnm")
        (letters-N "123456789")
        (pass-length (or pre-len current-prefix-arg 8))
        (iter 0) 
