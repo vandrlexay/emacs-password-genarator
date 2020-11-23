@@ -16,17 +16,36 @@ This package provides simple functions to create passwords and insert them insid
 
 `M-x password-generator-numeric` - generate 4 digits password.
 
+`M-x password-generator-words` - generate password from 4 random of most used 1500 english words. "." is default separator.
+
+`M-x password-generator-custom` - generate password your alphabet.
+
 
 ## Changing password length:
 
 `C-u 10 M-x password-generator-numeric` - generate 10 digits password.
 `C-u 32 M-x password-generator-paranoid` - generate 32 characters password with specil symbols.
+
 etc.
 
+`C-u 5 M-x password-generator-words` - generate password from 5 random words, but exact length is unpredicatble!
 
-## Generate password but do not insert it:
+
+## Customizing the package:
+
+See `M-x customize-group` for group password-generator .
+
+
+## Generate password but not to insert it:
 
 `(password-generator-strong 10 t)` - will return 10 characters length password.
 
 
-### Please star the repo if you find this package useful
+## Generate passwords from your own alphabet:
+
+`password-generator-custom` is used for generating passwords which is phone friendly, or containing symbols from your national language. To define its behavior customize variables `password-generator-custom-length` and `password-generator-custom-alphabet`.
+
+
+### Please star the repo if you find this package useful!
+
+Thank you for using this software.
