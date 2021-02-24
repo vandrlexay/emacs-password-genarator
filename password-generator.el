@@ -1,9 +1,9 @@
 ;;; password-generator.el --- Password generator for humans. Good, Bad, Phonetic passwords included.
 
-;; Copyright (C) 2020 Zargener
+;; Copyright (C) 2021 
 
-;; Author: Zargener <zargener@gmail.com>
-;; URL: http://github.com/zargener/emacs-password-genarator
+;; Author: Vandrlexay
+;; URL: http://github.com/vandrlexay/emacs-password-genarator
 ;; Version: 1.20
 
 ;;; Commentary:
@@ -19,7 +19,7 @@
 
 ;; Use C-u <length> password-generator-simple to specify length of generated password. This works with other functions too.
 
-;; See full docs here: http://github.com/zargener/emacs-password-genarator
+;; See full docs here: http://github.com/vandrlexay/emacs-password-genarator
 
 ;;; Code:
 
