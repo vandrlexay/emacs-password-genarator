@@ -68,10 +68,8 @@
 ;;;###autoload
 (defun password-generator-get-random-string-char (string)
   "You pass here STRING.  You get random character from it."
-  (let* ((random-symbol 0))
-    (progn
-      (setq random-symbol (password-generator-random (length string)))
-      (substring string random-symbol (+ 1 random-symbol)))))
+  (let ((n (password-generator-random (length string))))
+    (char-to-string (elt string n))))
 
 
 ;;;###autoload
