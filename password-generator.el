@@ -144,7 +144,7 @@
        (letters-A "eyuioa")
        (letters-B "wrtpsdfghjkzxcvbnm")
        (letters-N "123456789")
-       (pass-length (or pre-len current-prefix-arg password-generator-simple-length))
+       (pass-length (or pre-len current-prefix-arg password-generator-phonetic-length))
        (iter 0)
        (max-iter (+ 1 (/ pass-length 3))))
     (while (< iter max-iter)
